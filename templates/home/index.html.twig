@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <h1>Digit Media</h1>
+
+    {{ form(form) }}
+
+    {% if res is not null %}
+
+        {% for key, items in res %}
+{#             iptc, concepts...#}
+            <h2>{{ key }}</h2>
+            {% for kk,item in items %}
+                <ul>
+                    <li>
+                        {% if item is iterable %}
+                            {% for key,i in item %}
+                                {% if i is iterable %}
+                                    {% for ke,it in i %}
+                                        {% if not(ke matches '/^\\d+$/') %}
+                                            <h3>{{ ke }}</h3>
+                                        {% endif %}
+                                        <p>{{ it }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    {% if not(key matches '/^\\d+$/') %}
+                                        <h3>{{ key }} :</h3>
+                                        <p>- {{ i }}</p>
+                                    {% else %}
+                                        <p>{{ i }}</p>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <h3>{{ kk }}</h3>
+                            <p>{{ item }}</p>
+                        {% endif %}
+                    </li>
+                </ul>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
